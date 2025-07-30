@@ -1,14 +1,11 @@
 # -*- coding:utf-8 -*-
 """
-@Created on : 2025/7/28/15:50
-@Author: binkuolo
 @Des: 基本配置文件
 """
 
 import os.path
 from pydantic import BaseSettings
 from typing import List
-
 
 class Config(BaseSettings):
     # 调试模式
@@ -19,6 +16,7 @@ class Config(BaseSettings):
     DESCRIPTION: str = 'fastapi项目study'
     # 静态资源目录
     STATIC_DIR: str = os.path.join(os.getcwd(), "static")
+    TEMPLATE_DIR: str = os.path.join(STATIC_DIR, "templates")
     # 跨域请求
     CORS_ORIGINS: List[str] = ['*']
     CORS_ALLOW_CREDENTIALS: bool = True

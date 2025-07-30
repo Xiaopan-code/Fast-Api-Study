@@ -1,13 +1,10 @@
 # -*- coding:utf-8 -*-
 """
-@Created on : 2025/7/28/15:59
-@Author: binkuolo
 @Des: 工具函数
 """
 
 import hashlib
 import uuid
-
 
 def random_str():
     """

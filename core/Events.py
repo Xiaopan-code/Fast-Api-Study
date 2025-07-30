@@ -1,7 +1,5 @@
 # -*- coding:utf-8 -*-
 """
-@Created on : 2025/7/28/15:54
-@Author: binkuolo
 @Des: fastapi事件监听
 """
 
@@ -20,7 +18,6 @@ def startup(app: FastAPI) -> Callable:
         print("启动完毕")
         pass
     return app_start
-
 
 def stopping(app: FastAPI) -> Callable:
     """

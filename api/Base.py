@@ -1,14 +1,16 @@
 # -*- coding:utf-8 -*-
 """
-@Created on : 2025/7/28/15:48
-@Author: 比奇堡海绵宝宝 原作者:binkuolo
 @Des: 基本路由
 """
-from fastapi import APIRouter, Request
-router = APIRouter()
+from fastapi import APIRouter
 
+from api.login import index, login
 
-@router.get('/')
+ApiRouter = APIRouter(prefix="/v1", tags=["api路由"])
+
+@ApiRouter.get('/input')
 async def home(num: int):
+    return {"num": num, "data": [{"num": num, "data": []}, {"num": num, "data": []}]}
 
-    return num
+ApiRouter.get("/index",tags=["api路由"],summary="注册接口")(index)
+ApiRouter.post("/login",tags=["api路由"],summary="登录接口")(login)
