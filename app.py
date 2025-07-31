@@ -3,6 +3,13 @@
 @Des: app运行时文件
 """
 
+"""
+数据库那边如果一直出问题的话就是mysql.py 那边 'database': os.getenv('BASE_DB', 'fastapi')
+fastapi要改成自己的数据库名称 要不然就是直接使用下面的两行代码直接在开始时去获取.env下的数据库信息
+"""
+# from dotenv import load_dotenv
+# load_dotenv()
+
 from fastapi import FastAPI, HTTPException
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,13 +27,11 @@ application = FastAPI(
     description=settings.DESCRIPTION,
     version=settings.VERSION,
     title=settings.PROJECT_NAME
-    )
-
+)
 
 # 事件监听
 application.add_event_handler("startup", startup(application))
 application.add_event_handler("shutdown", stopping(application))
-
 
 # 异常错误处理
 application.add_exception_handler(HTTPException, http_error_handler)
