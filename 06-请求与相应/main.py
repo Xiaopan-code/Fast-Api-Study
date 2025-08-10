@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 import uvicorn
+from starlette.staticfiles import StaticFiles
+
 from apps.app01 import app01
 from apps.app02 import app02
 from apps.app03 import app03
@@ -8,6 +10,8 @@ from apps.app05 import app05
 from apps.app06 import app06
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.include_router(app01,tags=["01 路径参数"])
 app.include_router(app02,tags=["02 查询参数"])
