@@ -28,5 +28,62 @@
 
 <p>pai : {{ pai|round(3) }}</p>
 
+<p>影视区</p>
+
+{% if age > 18 %}
+
+<ul>
+    <li>日韩</li>
+    <li>欧美</li>
+    <li>国产</li>
+</ul>
+
+{% else %}
+
+<ul>
+    <li>黑猫警长</li>
+    <li>熊出没</li>
+    <li>大头儿子和小头爸爸</li>
+</ul>
+
+{% endif %}
+
+<hr>
+<ul>
+    {% for book in books %}
+    <li>{{ book }}</li>
+    {% endfor %}
+</ul>
+
+<hr>
+<p>影视区</p>
+
+{% if age > 18 %}
+
+<ul>
+    {% for movie in movies.adult_movies %}
+    <li>{{ movie }}</li>
+    {% endfor %}
+</ul>
+
+{% else %}
+
+<ul>
+    {% for movie in movies.young_movies %}
+    <li>{{ movie }}</li>
+    {% endfor %}
+</ul>
+
+{% endif %}
+
+<hr>
+<ul>
+    {% for book in books %}
+    {% if book.price > 150 %}
+        <li>{{ book.title }}</li>
+    {% endif %} 
+    {% endfor %}
+</ul>
+
 </body>
 </html>
