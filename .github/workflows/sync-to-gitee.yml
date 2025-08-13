@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 0  # 拉取所有历史提交
 
       - name: Sync to Gitee
-        uses: wearerequired/git-mirror-action@v2
+        uses: wearerequired/git-mirror-action@v1
         env:
           # 使用前面生成的 Gitee 令牌（需先在 GitHub 配置 Secrets）
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_TOKEN }}
