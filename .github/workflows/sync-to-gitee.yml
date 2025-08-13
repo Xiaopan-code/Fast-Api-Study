@@ -1,0 +1,24 @@
+name: Sync to Gitee
+on:
+  push:
+    branches: [ main, master ]  # 监听 GitHub 主分支的推送
+  workflow_dispatch:  # 允许手动触发同步
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 拉取所有历史提交
+
+      - name: Sync to Gitee
+        uses: wearerequired/git-mirror-action@v2
+        env:
+          # 使用前面生成的 Gitee 令牌（需先在 GitHub 配置 Secrets）
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_TOKEN }}
+        with:
+          # 源仓库（GitHub）和目标仓库（Gitee）地址
+          source-repo: "git@github.com:Xiaopan-code/Fast-Api-Study.git"
+          destination-repo: "git@gitee.com:panweikun/fast-api-study.git"
