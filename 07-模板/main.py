@@ -18,7 +18,7 @@ def index(request: Request):
     info = {"name": "rain", "age": 32, "gender": "male"}
     pai = 3.141592653589793
 
-    movies = {"adult_movies": ["日韩","欧美","国产"], "young_movies": ["黑猫警长","熊出没","大头儿子和小头爸爸"]}
+    movies = {"adult_movies": ["日韩", "欧美", "国产"], "young_movies": ["黑猫警长", "熊出没", "大头儿子和小头爸爸"]}
 
     return templates.TemplateResponse(
         "index.html",      # 模板文件
