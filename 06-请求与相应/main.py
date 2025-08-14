@@ -1,7 +1,6 @@
-from fastapi import FastAPI
 import uvicorn
+from fastapi import FastAPI
 from starlette.staticfiles import StaticFiles
-
 from apps.app01 import app01
 from apps.app02 import app02
 from apps.app03 import app03
