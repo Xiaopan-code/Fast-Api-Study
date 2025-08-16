@@ -2,6 +2,8 @@ from fastapi import APIRouter
 from models import *
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
+from pydantic import BaseModel, field_validator
+from typing import List
 
 student_api = APIRouter()
 
@@ -55,11 +57,39 @@ async def getAllStudent(request: Request):
     )
 
 
+class StudentIn(BaseModel):
+    name: str
+    pwd: str
+    sno: int
+    clas_id: int
+    courses: List[int] = []
+
+    @field_validator('name')
+    def name_must_alpha(cls, value):
+        assert value.isalpha(), 'name must be alpha'
+        return value
+
+    @field_validator('sno')
+    def sno_validator(cls, value):
+        assert 1000 < value < 10000, '学号要在1000-10000的范围内'
+        return value
+
 
 @student_api.post('/')
-def addStudent():
+async def addStudent(student_in: StudentIn):
+
+    # 插入到数据库
+    # 方式1
+    # student = Student(name=student_in.name, pwd=student_in.pwd, sno=student_in.sno, clas_id=student_in.clas_id)
+    # await student.save()  # 插入到数据库student表
+
+    # 方式2
+    student = await Student.create(name=student_in.name, pwd=student_in.pwd, sno=student_in.sno, clas_id=student_in.clas_id)
+    return student
+
+
     return {
-        "操作": "添加一个学生"
+        "操作": f"添加一个学生"
     }
 
 
