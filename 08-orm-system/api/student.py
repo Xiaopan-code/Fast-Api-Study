@@ -84,7 +84,13 @@ async def addStudent(student_in: StudentIn):
     # await student.save()  # 插入到数据库student表
 
     # 方式2
-    student = await Student.create(name=student_in.name, pwd=student_in.pwd, sno=student_in.sno, clas_id=student_in.clas_id)
+    student = await Student.create(name=student_in.name, pwd=student_in.pwd,
+                                   sno=student_in.sno, clas_id=student_in.clas_id)
+
+    # 多对多的关系绑定
+    choose_courses = await Course.filter(id__in=student_in.courses)
+    await student.courses.add(*choose_courses)
+
     return student
 
 
