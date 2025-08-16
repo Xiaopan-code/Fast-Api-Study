@@ -88,11 +88,6 @@ async def addStudent(student_in: StudentIn):
     return student
 
 
-    return {
-        "操作": f"添加一个学生"
-    }
-
-
 @student_api.get('/{student_id}')
 def getOneStudent(student_id: int):
 
