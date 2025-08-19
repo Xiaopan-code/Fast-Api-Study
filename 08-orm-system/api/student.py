@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from pydantic import BaseModel, field_validator
 from typing import List
+from fastapi.exceptions import HTTPException
 
 student_api = APIRouter()
 
@@ -119,7 +120,10 @@ async def updateStudent(student_id: int, student_in: StudentIn):
 
 
 @student_api.delete('/{student_id}')
-def deleteStudents(student_id: int):
-    return {
-        "操作": f"删除id={student_id}一个学生"
-    }
+async def deleteStudents(student_id: int):
+
+    deleteCount = await Student.filter(id=student_id).delete()
+    if not deleteCount:
+        raise HTTPException(status_code=404, detail=f"主键为{student_id}的学生不存在")
+
+    return {}
