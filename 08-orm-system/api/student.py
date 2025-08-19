@@ -95,18 +95,27 @@ async def addStudent(student_in: StudentIn):
 
 
 @student_api.get('/{student_id}')
-def getOneStudent(student_id: int):
+async def getOneStudent(student_id: int):
+    student = await Student.get(id=student_id)
 
-    return {
-        "操作": f"查看id={student_id}一个学生"
-    }
+    return student
 
 
 @student_api.put('/{student_id}')
-def updateStudent(student_id: int):
-    return {
-        "操作": f"更新id={student_id}一个学生"
-    }
+async def updateStudent(student_id: int, student_in: StudentIn):
+    data = student_in.model_dump()
+    print("data", data)
+    courses = data.pop("courses")
+
+    await Student.filter(id=student_id).update(**data)
+
+    # 设置多对多的选修课
+    edit_stu = await Student.get(id=student_id)
+    choose_courses = await Course.filter(id__in=courses)
+    await edit_stu.courses.clear()
+    await edit_stu.courses.add(*choose_courses)
+
+    return edit_stu
 
 
 @student_api.delete('/{student_id}')
